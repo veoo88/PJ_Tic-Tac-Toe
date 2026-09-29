@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo Cáo Dự Án - Game Cờ Caro Pro</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: #fff;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        h1, h2, h3, h4 {
+            color: #1a365d;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 5px;
+            border-bottom: 3px solid #2b6cb0;
+            padding-bottom: 15px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            font-size: 1.1em;
+            margin-bottom: 40px;
+        }
+        .meta-box {
+            background-color: #ebf8ff;
+            border-left: 5px solid #3182ce;
+            padding: 15px 20px;
+            margin-bottom: 35px;
+            border-radius: 4px;
+        }
+        .meta-box p {
+            margin: 6px 0;
+            color: #2c5282;
+            font-weight: 500;
+        }
+        h2 {
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 35px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #cbd5e0;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #edf2f7;
+            color: #2d3748;
+        }
+        tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+        code {
+            background: #edf2f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+            color: #c53030;
+        }
+        pre {
+            background: #2d3748;
+            color: #f7fafc;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: Consolas, monospace;
+            font-size: 0.95em;
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        .badge-easy { background: #c6f6d5; color: #22543d; }
+        .badge-medium { background: #bee3f8; color: #2a4365; }
+        .badge-hard { background: #fed7d7; color: #742a2a; }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #a0aec0;
+            font-size: 0.9em;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>BÁO CÁO DỰ ÁN: GAME CỜ CARO PRO</h1>
+    <div class="subtitle">Ứng dụng trò chơi Cờ Caro thông minh trên nền tảng Windows Forms C#</div>
+
+    <div class="meta-box">
+        <p><strong>Môn học:</strong> Lập trình Windows (LTWIN)</p>
+        <p><strong>Nền tảng:</strong> .NET Framework 4.7.2 / C# (Windows Forms)</p>
+        <p><strong>Kỹ thuật đồ họa:</strong> GDI+ kết hợp Double Buffering</p>
+        <p><strong>Kiến trúc:</strong> Tách lớp (Model - Controller/View - AI Engine)</p>
+    </div>
+
+    <h2>1. Giới Thiệu Tổng Quan</h2>
+    <p>
+        <strong>Game Cờ Caro Pro</strong> là đồ án xây dựng trò chơi đối kháng cờ Caro (Gomoku) hoàn chỉnh trên nền tảng Windows Forms trong C#. 
+        Dự án tập trung giải quyết triệt để các nhược điểm thường thấy ở các phần mềm cờ caro sinh viên (như sử dụng hàng trăm Control Button gây giật lag, màu sắc chói mắt, luật kiểm tra sai mép bàn cờ, và AI quá ngây thơ).
+    </p>
+
+    <h2>2. Các Điểm Nổi Bật Của Hệ Thống</h2>
+    <ul>
+        <li><strong>Đồ họa mượt mà 60 FPS:</strong> Dựng hình bằng GDI+ khử răng cưa và vùng đệm kép <code>DoubleBuffered</code>, loại bỏ hoàn toàn 375 Button nặng nề.</li>
+        <li><strong>Bộ não AI 3 cấp độ:</strong>
+            <span class="badge badge-easy">⭐ Dễ</span>
+            <span class="badge badge-medium">⭐⭐ Trung Bình</span>
+            <span class="badge badge-hard">⭐⭐⭐ Cao Thủ</span> 
+            (Nhận biết thế cờ, giăng bẫy đôi 3-3, 4-3).
+        </li>
+        <li><strong>Xử lý bất đồng bộ (Async AI):</strong> Sử dụng <code>Task.Run</code> tính toán nước cờ trong luồng nền, không bao giờ làm đơ giao diện.</li>
+        <li><strong>Trọng tài chuẩn xác:</strong> Hỗ trợ cả <em>Luật Caro Việt Nam</em> (chặn 2 đầu không thắng, mép bàn không tính là chặn) và <em>Luật Tự Do</em>.</li>
+        <li><strong>Tiện ích thi đấu chuyên nghiệp:</strong> Đồng hồ đếm ngược 20s/lượt kèm thanh tiến trình cảnh báo, bảng tỉ số, bộ đôi hoàn tác (Undo) và đi lại (Redo), cùng tính năng tư vấn nước đi (Hint).</li>
+    </ul>
+
+    <h2>3. Cấu Trúc Mã Nguồn & Các Module</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>File Mã Nguồn</th>
+                <th>Phân Lớp</th>
+                <th>Mô Tả Chức Năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>GameEnums.cs</code></td>
+                <td>Định nghĩa</td>
+                <td>Chứa các kiểu dữ liệu liệt kê: <code>CellState</code>, <code>AIMode</code>, <code>GameRule</code>, <code>GameMode</code>, <code>FirstTurn</code>.</td>
+            </tr>
+            <tr>
+                <td><code>CaroBoard.cs</code></td>
+                <td>Model (Lõi)</td>
+                <td>Quản lý ma trận bàn cờ $18 \times 22$, trọng tài kiểm tra thắng thua, ngăn xếp lịch sử Undo/Redo.</td>
+            </tr>
+            <tr>
+                <td><code>CaroAI.cs</code></td>
+                <td>Trí Tuệ Nhân Tạo</td>
+                <td>Bộ não AI Heuristic: lọc nước đi tiềm năng, chấm điểm thế cờ 4 phương, phát hiện bẫy đôi, tạo gợi ý nước đi.</td>
+            </tr>
+            <tr>
+                <td><code>Form1.cs</code></td>
+                <td>Controller / View</td>
+                <td>Xử lý sự kiện bàn cờ, vẽ đồ họa GDI+, đếm ngược thời gian lượt chơi, âm thanh và kết nối AI.</td>
+            </tr>
+            <tr>
+                <td><code>Menu.cs</code></td>
+                <td>Launcher</td>
+                <td>Giao diện khởi động: cấu hình chế độ (PvP/PvE), chọn độ khó, ai đi trước, luật chơi và quản lý vòng đời ứng dụng.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>4. Bảng Điểm Đánh Giá Thế Cờ Của AI (Heuristic Matrix)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Tên Thế Cờ</th>
+                <th>Số Quân</th>
+                <th>Đầu Mở</th>
+                <th>Điểm Đánh Giá</th>
+                <th>Ý Nghĩa Chiến Thuật</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Thắng Tuyệt Đối</strong></td>
+                <td>&ge; 5</td>
+                <td>-</td>
+                <td>20,000,000</td>
+                <td>Nước cờ kết thúc và giành chiến thắng ván đấu.</td>
+            </tr>
+            <tr>
+                <td><strong>4 Hở 2 Đầu</strong></td>
+                <td>4</td>
+                <td>2</td>
+                <td>2,000,000</td>
+                <td>Thế tất thắng nước tiếp theo (đối phương chỉ chặn được 1 đầu).</td>
+            </tr>
+            <tr>
+                <td><strong>4 Chặn 1 Đầu</strong></td>
+                <td>4</td>
+                <td>1</td>
+                <td>200,000</td>
+                <td>Cực kỳ nguy hiểm, bắt buộc đối phương phải đỡ ngay lập tức.</td>
+            </tr>
+            <tr>
+                <td><strong>3 Hở 2 Đầu</strong></td>
+                <td>3</td>
+                <td>2</td>
+                <td>50,000</td>
+                <td>Thế tấn công chủ lực, dễ dàng phát triển thành 4 hở 2 đầu.</td>
+            </tr>
+            <tr>
+                <td><strong>3 Chặn 1 Đầu</strong></td>
+                <td>3</td>
+                <td>1</td>
+                <td>4,000</td>
+                <td>Thế cờ tiềm năng hỗ trợ tấn công phụ.</td>
+            </tr>
+            <tr>
+                <td><strong>2 Hở 2 Đầu</strong></td>
+                <td>2</td>
+                <td>2</td>
+                <td>800</td>
+                <td>Nước đi phát triển quân cơ bản.</td>
+            </tr>
+            <tr>
+                <td><strong>Bẫy Kép (Fork 3-3, 4-3)</strong></td>
+                <td>&ge; 2 thế</td>
+                <td>-</td>
+                <td>+2,000,000</td>
+                <td>Tạo ra ít nhất 2 hướng tấn công đồng thời, không thể hóa giải.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>5. Hướng Dẫn Biên Dịch & Chạy Game</h2>
+    <ol>
+        <li>Mở file <code>Co_Caro.sln</code> bằng <strong>Visual Studio 2017 / 2019 / 2022</strong>.</li>
+        <li>Chọn cấu hình <strong>Debug</strong> hoặc <strong>Release</strong> (nền tảng <strong>Any CPU</strong>).</li>
+        <li>Nhấn <strong>F5</strong> để bắt đầu trải nghiệm.</li>
+        <li>Hoặc bạn có thể click đúp chuột trực tiếp vào file chạy sẵn tại: <code>bin\Debug\Tic_Tac_toe_1.exe</code>.</li>
+    </ol>
+
+    <div class="footer">
+        Đồ Án Lập Trình Windows (LTWIN) - Dự Án Game Cờ Caro Pro (C# / WinForms)
+    </div>
+</div>
+
+</body>
+</html>
+
